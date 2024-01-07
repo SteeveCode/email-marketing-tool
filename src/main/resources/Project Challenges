@@ -1,0 +1,61 @@
+CAHELLENGES ENCOUNTERED & SOLUTIONS
+
+1. Problem:
+I was unable to establish an smtp connection
+
+Cause:
+I had downloaded only mail.jar file and added to build path and lib folder.
+
+Solution:
+I needed to download both mail.jar and activation.jar and the place both in the build path and lib folder.
+I saw where it was recommended that instead of downloading both jar files, you can download javax.mail.jar instead as
+this singular jar file contain both mail.jar and activation.jar files.
+
+2. Problem:
+1. I had the following exception when trying to write to the output stream(response object) again after writing to it earlier
+Exception: Cannot call sendRedirect() after the response has been committed
+
+Cause:
+The root cause of IllegalStateException exception is a java servlet is attempting to write to the output stream
+(response) after the response has been committed. It is always better to ensure that no content is added to the response
+after the forward or redirect is done to avoid IllegalStateException. It can be done by including a ‘return’ statement
+immediately next to the forward or redirect statement.
+
+Solution:
+I used an if/else statement to separate the two instances of writing to the output stream(response object) such that no
+content is added to the response object after the forward or send redirect method call.
+
+3. Problem:
+I had a myriad of exceptions when trying to configure Java mail API to send emails. Some of them are
+a. javax.mail.MessagingException: Could not connect to SMTP host: smtp.gmail.com, port: 587;
+b. com.sun.mail.util.MailConnectException: Couldn't connect to host, port: smtp.gmail.com, 587; timeout -1;
+c. javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted.
+d. Could not connect to SMTP host: smtp.gmail.com, port: 465, response: -1
+
+Cause:
+User authentication was the main cause. Google stopped supporting "Less Secure Apps" as of May 30th, 2022.
+
+Solution:
+One of the alternatives to solve this problem is to use 2-Step Verification and generate app password:
+Google Account -> Security -> 2-Step Verification -> Input password as asked -> Turn ON (you could use SMS to get Gmail code to activate 2-Step Verification)
+Google Account -> Security -> App password -> Input password as asked -> Select the app and device... -> e.g. Other(Custom name) -> Input app name e.g. MyApp -> Generate
+Copy a 16-character password
+Use a 16-character password with Gmail username in your application
+
+4. Problem:
+I was unable to send an email that had an image attachment. I kept getting the error below:
+java.lang.RuntimeException: javax.mail.MessagingException: IOException while sending message; nested exception is:
+java.io.FileNotFoundException:
+
+cause:
+I had placed the image file in the project root directory and used the relative file path in the code.
+I had also use a forward slash(/) in the file path address
+
+Solution:
+I changed the relative file path to its absolute file path. Also, I changed all the directory separator single forward
+slash(/) to a double backward slash(\\). It appears that the reason I had to use the double backward slash is because I
+did not use custom attach methods that understands the Windows OS directory structure. I saw tutorials where the single
+forward slash(/) was use in the file path and it worked also.
+Note:
+The problem with the relative file path and forward slash(/) above became a non-problem when I used a different code in
+the "SimpleAttachmentEmailSender" servlet as against the code in "AttachmentEmailSender" servlet.

@@ -1,0 +1,22 @@
+#head {
+    position:absolute; top:0%; left:0%; width:100%; background-color:#337FD5; height:15%;
+
+}
+
+#navi {
+    position:absolute; top:15%; left:0%; width:100%; background-color:lightslategrey; height:5%;
+
+}
+
+#main-page {
+    position:absolute; top:20%; left:0%; width:100%; background-color:#D0E1DA; height:80%;
+
+}
+
+/*.m1{margin-left:10%; color:white;}*/
+
+/*.m2{margin-left:35%; color:white;}*/
+
+/*.m3{margin-left:60%; color:white;}*/
+
+/*.m4{margin-left:80%; color:white;}*/

@@ -1,0 +1,3 @@
+-- create database if not exists email;
+-- use email;
+-- create table emprecord (empid int not null primary key, empname varchar(256) not null, login varchar(256) not null, password varchar(256) not null;
